@@ -4,5 +4,6 @@
         "endpoints" : {
             "ticker" : "/getticker"
         }
-    }
+    },
+    "pairs" : ["BTC-XRP","BTC-DASH","BTC-XEM"]
 }

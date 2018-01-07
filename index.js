@@ -9,6 +9,7 @@ class Index{
         this._apiUrl = config.get('api.url');
         this._endpoints = config.get('api.endpoints');
         this._transmission = new TransmissionProvider();
+        this._pairs = config.get("pairs");
     }
 
     getTicker(market){
@@ -24,7 +25,7 @@ class Index{
                     data : response.result
                 }
                 console.log(JSON.stringify(subject));
-                fs.appendFileSync('./data', JSON.stringify(subject) + os.EOL);
+                fs.appendFileSync(`./${market}`, JSON.stringify(subject) + os.EOL);
             })
     }
 
@@ -33,7 +34,10 @@ class Index{
     }
 
     execute(){
-        setInterval(()=>{this.getTicker('BTC-XRP')}, 1000);
+        this._pairs.forEach(market => {
+            setInterval(()=>{this.getTicker(market)}, 1000);    
+        });
+        
     }
 }
 
